@@ -1,0 +1,52 @@
+{% extends 'consumption/layout.html' %}
+
+{% block content %}
+ <!-- Highcharts -->
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <div class="container">
+        <div class="col-12">
+          <h2>Electricity Consumption Summary</h2><br><br>
+        </div>
+        <div class="row align-items-center">
+           <div class="col-4">
+               <h1>total<br>{{total_amount}}<br>kWh</h1>
+           </div>
+           <div class="col-4">
+               <h1>ave.<br>{{ave_amount}}<br>kWh/month</h1>
+           </div>
+           <div class="col-4">
+               <h1>{{user_count}} Users</h1><br>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col" id="summary">
+              <script>
+                Highcharts.chart('summary', {{ summary_chart|safe }});
+              </script>
+           </div>
+       </div>
+       <div class="row">
+           <div class="text-left"><h3>Users</h3></div>
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>User ID</th>
+              <th>Aera</th>
+              <th>Tariff</th>
+            </tr>
+          </thead>
+          <tbody>
+           {% for user in user_list %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ user.user_id }}</td>
+              <td>{{ user.area }}</td>
+              <td>{{ user.tariff }}</td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+       </div>
+    </div>
+{% endblock %}
