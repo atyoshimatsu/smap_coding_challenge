@@ -33,6 +33,6 @@ class Command(BaseCommand):
                 with open(file) as csvfile:
                     reader = csv.DictReader(csvfile)
                     for row in reader:
-                        data = Consumption(user=User.objects.get(user_id=file[-8:-4]), usage_time=dt.strptime(row['datetime'], '%Y-%m-%d %H:%M:%S').astimezone(pytz.timezone('UTC')), kWh=row['consumption'],)
+                        data = Consumption(user=User.objects.get(user_id=file[-8:-4]), usage_time=dt.strptime(row['datetime'], '%Y-%m-%d %H:%M:%S').astimezone(pytz.timezone('Asia/Tokyo')), kWh=row['consumption'],)
                         instances.append(data)
                 Consumption.objects.bulk_create(instances)
